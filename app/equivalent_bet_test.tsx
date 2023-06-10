@@ -1,24 +1,43 @@
 'use client';
 
 import { useState } from "react";
-import Lottery from "./lottery";
-import { Odds } from "./odds";
+import BallLottery from "./ball_lottery";
+import { divide, add, subtract, fraction, MathType } from 'mathjs';
 
 export default function EquivalentBetTest() {
-    const [currentOdds, setOdds] = useState({ antecedent: 1, consequent: 2 });
-    const NO_FINAL_ANSWER: Odds | null = null;
-    const [finalAnswer, setFinalAnswer] = useState(NO_FINAL_ANSWER);
-
-    function increaseAntecedentOdds(odds: Odds): Odds {
-        return { antecedent: 3, consequent: 4 };
+    function midpoint(a: MathType, b: MathType): MathType {
+        return divide(add(a, b), fraction('2'));
     }
 
-    function increaseConsequentOdds(odds: Odds) {
-        return { antecedent: 1, consequent: 4 };
+    const [minP, setMinP] = useState<MathType>(fraction('0'));
+    const [maxP, setMaxP] = useState<MathType>(fraction('1'));
+    let lotteryP: MathType = midpoint(minP, maxP);
+
+    function oddsFromProbability(p: MathType): MathType {
+        return divide(p, subtract(fraction('1'), p));
+    }
+
+    const [lotteryOdds, setLotteryOdds] = useState<MathType>(oddsFromProbability(lotteryP));
+
+    console.log('lotteryP', lotteryP);
+    console.log('lotteryOdds', lotteryOdds);
+
+    const [finalAnswer, setFinalAnswer] = useState<MathType | null>(null);
+
+    function handleLottery() {
+        setMaxP(lotteryP);
+        lotteryP = midpoint(minP, lotteryP);
+        setLotteryOdds(oddsFromProbability(lotteryP));
+    }
+
+    function handleProposition() {
+        setMinP(lotteryP);
+        lotteryP = midpoint(lotteryP, maxP);
+        setLotteryOdds(oddsFromProbability(lotteryP));
     }
 
     function handleIndifferent() {
-        setFinalAnswer(currentOdds);
+        setFinalAnswer(lotteryP);
     }
 
     return (
@@ -29,13 +48,13 @@ export default function EquivalentBetTest() {
             
             {
                 finalAnswer ? (
-                    <p>Therefore you estimated that the odds of the proposition being true is {finalAnswer.antecedent} : {finalAnswer.consequent}</p>
+                    <p>Therefore you estimated that the probability of the proposition being true is {lotteryP.toString()}</p>
                 ) : (
                     <>
-                        <Lottery odds={currentOdds} />
+                        <BallLottery odds={lotteryOdds} />
                         <p>Is the proposition or the lottery more likely?</p>
-                        <button onClick={() => setOdds(increaseAntecedentOdds(currentOdds))}>Proposition</button>
-                        <button onClick={() => setOdds(increaseConsequentOdds(currentOdds))}>Lottery</button>
+                        <button onClick={handleProposition}>Proposition</button>
+                        <button onClick={handleLottery}>Lottery</button>
                         <button onClick={handleIndifferent}>Indifferent</button>
                     </>
                 )
