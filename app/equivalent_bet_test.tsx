@@ -9,14 +9,14 @@ export default function EquivalentBetTest() {
         return divide(add(a, b), fraction('2'));
     }
 
-    const [minP, setMinP] = useState<MathType>(fraction('0'));
-    const [maxP, setMaxP] = useState<MathType>(fraction('1'));
-    const lotteryP: MathType = midpoint(minP, maxP);
-
     function oddsFromProbability(p: MathType): MathType {
         return divide(p, subtract(fraction('1'), p));
     }
 
+    const [minP, setMinP] = useState<MathType>(fraction('0'));
+    const [maxP, setMaxP] = useState<MathType>(fraction('1'));
+
+    const lotteryP: MathType = midpoint(minP, maxP);
     const [lotteryOdds, setLotteryOdds] = useState<MathType>(oddsFromProbability(lotteryP));
     const [finalAnswer, setFinalAnswer] = useState<MathType | null>(null);
 
@@ -41,7 +41,7 @@ export default function EquivalentBetTest() {
             <label>Proposition:
                 <input name="proposition" type="text" />
             </label>
-            
+
             {
                 finalAnswer ? (
                     <p>Therefore you estimated that the probability of the proposition being true is {lotteryP.toString()}</p>
@@ -55,7 +55,6 @@ export default function EquivalentBetTest() {
                     </>
                 )
             }
-
         </div>
     )
 }
