@@ -18,10 +18,6 @@ export default function EquivalentBetTest() {
     }
 
     const [lotteryOdds, setLotteryOdds] = useState<MathType>(oddsFromProbability(lotteryP));
-
-    console.log('lotteryP', lotteryP);
-    console.log('lotteryOdds', lotteryOdds);
-
     const [finalAnswer, setFinalAnswer] = useState<MathType | null>(null);
 
     function handleLottery() {
