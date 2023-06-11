@@ -2,22 +2,23 @@
 
 import { useState } from "react";
 import BallLottery from "./ball_lottery";
-import { divide, add, subtract, fraction, MathType } from 'mathjs';
+import { divide, add, subtract, fraction, MathType, Fraction } from 'mathjs';
 
 export default function EquivalentBetTest() {
     function midpoint(a: MathType, b: MathType): MathType {
         return divide(add(a, b), fraction('2'));
     }
 
-    function oddsFromProbability(p: MathType): MathType {
-        return divide(p, subtract(fraction('1'), p));
+    function oddsFromProbability(p: MathType): Fraction {
+        const odds = divide(p, subtract(fraction('1'), p))
+        return odds as Fraction;
     }
 
     const [minP, setMinP] = useState<MathType>(fraction('0'));
     const [maxP, setMaxP] = useState<MathType>(fraction('1'));
 
     const lotteryP: MathType = midpoint(minP, maxP);
-    const [lotteryOdds, setLotteryOdds] = useState<MathType>(oddsFromProbability(lotteryP));
+    const [lotteryOdds, setLotteryOdds] = useState<Fraction>(oddsFromProbability(lotteryP));
     const [finalAnswer, setFinalAnswer] = useState<MathType | null>(null);
 
     function handleLottery() {
