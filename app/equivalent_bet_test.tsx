@@ -11,7 +11,7 @@ export default function EquivalentBetTest() {
 
     const [minP, setMinP] = useState<MathType>(fraction('0'));
     const [maxP, setMaxP] = useState<MathType>(fraction('1'));
-    let lotteryP: MathType = midpoint(minP, maxP);
+    const lotteryP: MathType = midpoint(minP, maxP);
 
     function oddsFromProbability(p: MathType): MathType {
         return divide(p, subtract(fraction('1'), p));
@@ -26,14 +26,14 @@ export default function EquivalentBetTest() {
 
     function handleLottery() {
         setMaxP(lotteryP);
-        lotteryP = midpoint(minP, lotteryP);
-        setLotteryOdds(oddsFromProbability(lotteryP));
+        const newLotteryOdds = oddsFromProbability(midpoint(minP, lotteryP));
+        setLotteryOdds(newLotteryOdds);
     }
 
     function handleProposition() {
         setMinP(lotteryP);
-        lotteryP = midpoint(lotteryP, maxP);
-        setLotteryOdds(oddsFromProbability(lotteryP));
+        const newLotteryOdds = oddsFromProbability(midpoint(lotteryP, maxP));
+        setLotteryOdds(newLotteryOdds);
     }
 
     function handleIndifferent() {
