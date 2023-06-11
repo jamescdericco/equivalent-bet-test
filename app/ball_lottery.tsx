@@ -7,24 +7,29 @@ interface Props {
 export default function BallLottery({ odds }: Props) {
     /**
      * Returns JSX display of the lottery that has the given odds.
+     * 
      * @param odds Odds of the lottery.
+     * @param maxColumns Maximum number of columns to display. If null or zero, then all balls will be displayed in one row.
      */
-    function renderBalls(odds: Fraction) {
+    function renderBalls(odds: Fraction, maxColumns: number | null = null) {
         const numerator: number = odds.n;
         const denominator: number = odds.d;
-        const balls = [];
+        const jsx = [];
+        const numBalls = numerator + denominator;
 
-        let i = 0;
+        let columnIndex = 0; // column index
 
-        for (; i < numerator; i++) {
-            balls.push(<span key={i}>●</span>);
+        for (let i = 0; i < numBalls; i++) {
+            jsx.push(<span key={i}>{i < numerator ? '●' : '○'}</span>);
+
+            columnIndex++;
+            if (maxColumns && columnIndex >= maxColumns) {
+                jsx.push(<br key={i + 'br'} />);
+                columnIndex = 0;
+            }
         }
 
-        for (; i < numerator + denominator; i++) {
-            balls.push(<span key={i}>○</span>);
-        }
-
-        return balls;
+        return jsx;
     }
     return (
         <div>
@@ -33,7 +38,7 @@ export default function BallLottery({ odds }: Props) {
             </label>
 
             <div>
-                {renderBalls(odds)}
+                {renderBalls(odds, 40)}
             </div>
         </div>
     )
