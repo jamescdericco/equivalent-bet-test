@@ -1,4 +1,5 @@
-import { Fraction, format } from "mathjs"
+import { Fraction } from "mathjs"
+import { formatOdds } from "./probability";
 
 interface Props {
     odds: Fraction
@@ -52,9 +53,12 @@ export default function BallLottery({ odds }: Props) {
     }
     return (
         <div>
-            <label>Lottery Odds:
-                <span>{format(odds)}</span>
-            </label>
+            <h2>
+                Lottery
+            </h2>
+            <p>
+                Picking one black ball at random from this bag of {odds.n + odds.d} balls. <em>The odds of this are {formatOdds(odds)}.</em>
+            </p>
 
             <div>
                 {renderBalls(odds)}

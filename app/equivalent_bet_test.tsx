@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import BallLottery from "./ball_lottery";
-import { divide, add, subtract, fraction, MathType, Fraction } from 'mathjs';
+import { add, subtract, multiply, divide, fraction, MathType, Fraction } from 'mathjs';
+import { formatOdds } from "./probability";
 
 export default function EquivalentBetTest() {
     function midpoint(a: MathType, b: MathType): MathType {
@@ -39,13 +40,14 @@ export default function EquivalentBetTest() {
 
     return (
         <div>
-            <label>Proposition:
-                <input name="proposition" type="text" />
-            </label>
+            <h2>
+                Proposition
+            </h2>
+            <textarea name="proposition" placeholder="Your proposition here..." />
 
             {
                 finalAnswer ? (
-                    <p>Therefore you estimated that the probability of the proposition being true is {lotteryP.toString()}</p>
+                    <p>Your estimate of the probability of this proposition is: {multiply(lotteryP, 100).toString()}% or {formatOdds(lotteryOdds)} odds.</p>
                 ) : (
                     <>
                         <BallLottery odds={lotteryOdds} />
