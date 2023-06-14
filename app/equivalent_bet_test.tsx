@@ -4,6 +4,7 @@ import { useState } from "react";
 import BallLottery from "./ball_lottery";
 import { add, subtract, multiply, divide, fraction, MathType, Fraction } from 'mathjs';
 import { formatOdds } from "./probability";
+import dynamic from "next/dynamic";
 
 export default function EquivalentBetTest() {
     function midpoint(a: MathType, b: MathType): MathType {
@@ -38,6 +39,10 @@ export default function EquivalentBetTest() {
         setFinalAnswer(lotteryP);
     }
 
+    const DynamicWheelLottery = dynamic(() => import('./wheel_lottery'), {
+        ssr: false,
+    });
+
     return (
         <div>
             <h2>
@@ -51,6 +56,7 @@ export default function EquivalentBetTest() {
                 ) : (
                     <>
                         <BallLottery odds={lotteryOdds} />
+                        <DynamicWheelLottery odds={lotteryOdds} />
                         <p>Is the proposition or the lottery more likely?</p>
                         <button onClick={handleProposition}>Proposition</button>
                         <button onClick={handleLottery}>Lottery</button>
