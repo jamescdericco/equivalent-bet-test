@@ -54,7 +54,7 @@ export default function BallLottery({ odds }: Props) {
     return (
         <div>
             <p>
-                Picking one black ball at random from this bag of {odds.n + odds.d} balls. <em>The odds of this are {formatOdds(odds)}.</em>
+                Pick one black ball at random from this bag of {odds.n + odds.d} balls. <em>The odds of this are {formatOdds(odds)}.</em>
             </p>
 
             <div>

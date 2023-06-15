@@ -52,15 +52,24 @@ export default function EquivalentBetTest() {
 
     return (
         <div>
+            <h1>
+                Equivalent Bet Test
+            </h1>
+            <p>
+                Use this test to quantify how confident you are in a belief by making some bets for high stakes.
+            </p>
             <h2>
-                Proposition
+                Belief
             </h2>
-            <textarea name="proposition" placeholder="Your proposition here..." />
+            <textarea placeholder="Your belief here..." />
 
             <h2>
                 Stakes
             </h2>
-            <textarea name="stakes" placeholder="$10,000" />
+            <p>
+                Write some high stakes to put the pressure on. This helps you make a realistic assessment of your confidence.
+            </p>
+            <textarea placeholder="$10,000" />
 
             {
                 <>
@@ -73,13 +82,19 @@ export default function EquivalentBetTest() {
                         ) : (
                             <>
                                 <h2>
-                                    Ball Lottery
+                                    Bet
                                 </h2>
+                                <p>
+                                    You are given the choice between two bets. One is a proposition, the other is a lottery. Choose the one you think is most likely to win.
+                                </p>
+                                <h3>
+                                    Ball Lottery
+                                </h3>
                                 <BallLottery odds={lotteryOdds()} />
 
-                                <h2>
+                                <h3>
                                     Wheel Lottery
-                                </h2>
+                                </h3>
                                 <DynamicWheelLottery odds={lotteryOdds()} />
 
                                 <p>Is the proposition or the lottery more likely?</p>
