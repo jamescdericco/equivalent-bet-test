@@ -2,18 +2,13 @@
 
 import { useState } from "react";
 import BallLottery from "./ball_lottery";
-import { add, subtract, multiply, divide, fraction, MathType, Fraction } from 'mathjs';
-import { formatOdds } from "./probability";
+import { add, multiply, divide, fraction, MathType, Fraction } from 'mathjs';
+import { formatOdds, oddsFromProbability } from "./probability";
 import dynamic from "next/dynamic";
 
 export default function EquivalentBetTest() {
     function midpoint(a: MathType, b: MathType): MathType {
         return divide(add(a, b), fraction('2'));
-    }
-
-    function oddsFromProbability(p: MathType): Fraction {
-        const odds = divide(p, subtract(fraction('1'), p))
-        return odds as Fraction;
     }
 
     const [minP, setMinP] = useState<MathType>(fraction('0'));
