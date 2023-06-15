@@ -52,7 +52,10 @@ export default function EquivalentBetTest() {
 
             {
                 finalAnswer ? (
-                    <p>Your estimate of the probability of this proposition is: {multiply(lotteryP, 100).toString()}% or {formatOdds(lotteryOdds)} odds.</p>
+                    <>
+                        <p>Your estimate of the probability of this proposition is:</p>
+                        <p>{multiply(lotteryP, 100).toString()}% or {formatOdds(lotteryOdds)} odds.</p>
+                    </>
                 ) : (
                     <>
                         <h2>
