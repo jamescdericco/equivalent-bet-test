@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import BallLottery from "./ball_lottery";
-import { add, multiply, divide, fraction, MathType, Fraction } from 'mathjs';
-import { formatOdds, oddsFromProbability } from "./probability";
+import { multiply, fraction, MathType, Fraction } from 'mathjs';
+import { formatOdds, midpoint, oddsFromProbability } from "./probability";
 import dynamic from "next/dynamic";
 
 export default function EquivalentBetTest() {
@@ -13,10 +13,6 @@ export default function EquivalentBetTest() {
     const [minP, setMinP] = useState<MathType>(INITIAL_MIN_P);
     const [maxP, setMaxP] = useState<MathType>(INITIAL_MAX_P);
     const [isFinalAnswer, setIsFinalAnswer] = useState<boolean>(false);
-
-    function midpoint(a: MathType, b: MathType): MathType {
-        return divide(add(a, b), fraction('2'));
-    }
 
     /**
      * @returns Return the probability of the current lottery.

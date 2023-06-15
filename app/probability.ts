@@ -1,4 +1,4 @@
-import { Fraction, MathType, divide, fraction, number, subtract } from 'mathjs';
+import { Fraction, MathType, add, divide, fraction, number, subtract } from 'mathjs';
 
 /**
  * Formats a given odds as a ratio with a colon separator.
@@ -8,6 +8,16 @@ import { Fraction, MathType, divide, fraction, number, subtract } from 'mathjs';
  */
 export function formatOdds(odds: Fraction): string {
   return `${odds.n}:${odds.d}`;
+}
+
+/**
+ * Returns the midpoint between two numbers (this is the mean of those numbers).
+ * @param a MathType
+ * @param b MathType
+ * @returns midpoint between a and b
+ */
+export function midpoint(a: MathType, b: MathType): MathType {
+  return divide(add(a, b), fraction('2'));
 }
 
 export function oddsFromProbability(p: MathType): Fraction {
