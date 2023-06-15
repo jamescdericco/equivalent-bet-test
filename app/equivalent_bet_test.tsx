@@ -32,7 +32,7 @@ export default function EquivalentBetTest() {
         setMaxP(lotteryProbability());
     }
 
-    function handleProposition() {
+    function handleBelief() {
         setMinP(lotteryProbability());
     }
 
@@ -76,7 +76,7 @@ export default function EquivalentBetTest() {
                     {
                         isFinalAnswer ? (
                             <>
-                                <p>Your estimate of the probability of this proposition is:</p>
+                                <p>Your estimate of the probability that this belief is true is:</p>
                                 <p>{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds.</p>
                             </>
                         ) : (
@@ -85,7 +85,7 @@ export default function EquivalentBetTest() {
                                     Bet
                                 </h2>
                                 <p>
-                                    You are given the choice between two bets. One is a proposition, the other is a lottery. Choose the one you think is most likely to win.
+                                    You are given the choice between two bets. One is your belief, the other is a lottery. Choose the one you think is most likely to win.
                                 </p>
                                 <h3>
                                     Ball Lottery
@@ -97,8 +97,8 @@ export default function EquivalentBetTest() {
                                 </h3>
                                 <DynamicWheelLottery odds={lotteryOdds()} />
 
-                                <p>Is the proposition or the lottery more likely?</p>
-                                <button onClick={handleProposition}>Proposition</button>
+                                <p>Is the belief or the lottery more likely?</p>
+                                <button onClick={handleBelief}>Belief</button>
                                 <button onClick={handleLottery}>Lottery</button>
                                 <button onClick={handleIndifferent}>Indifferent</button>
 
