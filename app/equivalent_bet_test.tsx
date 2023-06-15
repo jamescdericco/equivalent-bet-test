@@ -50,6 +50,11 @@ export default function EquivalentBetTest() {
             </h2>
             <textarea name="proposition" placeholder="Your proposition here..." />
 
+            <h2>
+                Stakes
+            </h2>
+            <textarea name="stakes" placeholder="$10,000" />
+
             {
                 finalAnswer ? (
                     <p>Your estimate of the probability of this proposition is: {multiply(lotteryP, 100).toString()}% or {formatOdds(lotteryOdds)} odds.</p>
