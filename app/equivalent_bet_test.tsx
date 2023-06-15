@@ -63,30 +63,35 @@ export default function EquivalentBetTest() {
             <textarea name="stakes" placeholder="$10,000" />
 
             {
-                isFinalAnswer ? (
-                    <>
-                        <p>Your estimate of the probability of this proposition is:</p>
-                        <p>{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds.</p>
-                    </>
-                ) : (
-                    <>
-                        <h2>
-                            Ball Lottery
-                        </h2>
-                        <BallLottery odds={lotteryOdds()} />
+                <>
+                    {
+                        isFinalAnswer ? (
+                            <>
+                                <p>Your estimate of the probability of this proposition is:</p>
+                                <p>{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds.</p>
+                            </>
+                        ) : (
+                            <>
+                                <h2>
+                                    Ball Lottery
+                                </h2>
+                                <BallLottery odds={lotteryOdds()} />
 
-                        <h2>
-                            Wheel Lottery
-                        </h2>
-                        <DynamicWheelLottery odds={lotteryOdds()} />
+                                <h2>
+                                    Wheel Lottery
+                                </h2>
+                                <DynamicWheelLottery odds={lotteryOdds()} />
 
-                        <p>Is the proposition or the lottery more likely?</p>
-                        <button onClick={handleProposition}>Proposition</button>
-                        <button onClick={handleLottery}>Lottery</button>
-                        <button onClick={handleIndifferent}>Indifferent</button>
-                        <button onClick={handleRestart}>Restart</button>
-                    </>
-                )
+                                <p>Is the proposition or the lottery more likely?</p>
+                                <button onClick={handleProposition}>Proposition</button>
+                                <button onClick={handleLottery}>Lottery</button>
+                                <button onClick={handleIndifferent}>Indifferent</button>
+
+                            </>
+                        )
+                    }
+                    <button onClick={handleRestart}>Restart</button>
+                </>
             }
         </div>
     )
