@@ -13,9 +13,6 @@ interface Props {
 export default function WheelLottery({ odds }: Props) {
     return (
         <div>
-            <h2>
-                Wheel Lottery
-            </h2>
             <Wheel mustStartSpinning={true} prizeNumber={0} data={[
                 { option: 'Win', optionSize: odds.n, style: { backgroundColor: 'green' } },
                 { option: 'Lose', optionSize: odds.d, style: { backgroundColor: 'red' } }

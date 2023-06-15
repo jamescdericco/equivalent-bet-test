@@ -55,8 +55,16 @@ export default function EquivalentBetTest() {
                     <p>Your estimate of the probability of this proposition is: {multiply(lotteryP, 100).toString()}% or {formatOdds(lotteryOdds)} odds.</p>
                 ) : (
                     <>
+                        <h2>
+                            Ball Lottery
+                        </h2>
                         <BallLottery odds={lotteryOdds} />
+
+                        <h2>
+                            Wheel Lottery
+                        </h2>
                         <DynamicWheelLottery odds={lotteryOdds} />
+
                         <p>Is the proposition or the lottery more likely?</p>
                         <button onClick={handleProposition}>Proposition</button>
                         <button onClick={handleLottery}>Lottery</button>
