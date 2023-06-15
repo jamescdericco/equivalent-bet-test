@@ -7,31 +7,47 @@ import { formatOdds, oddsFromProbability } from "./probability";
 import dynamic from "next/dynamic";
 
 export default function EquivalentBetTest() {
+    const INITIAL_MIN_P = fraction('0');
+    const INITIAL_MAX_P = fraction('1');
+
+    const [minP, setMinP] = useState<MathType>(INITIAL_MIN_P);
+    const [maxP, setMaxP] = useState<MathType>(INITIAL_MAX_P);
+    const [isFinalAnswer, setIsFinalAnswer] = useState<boolean>(false);
+
     function midpoint(a: MathType, b: MathType): MathType {
         return divide(add(a, b), fraction('2'));
     }
 
-    const [minP, setMinP] = useState<MathType>(fraction('0'));
-    const [maxP, setMaxP] = useState<MathType>(fraction('1'));
+    /**
+     * @returns Return the probability of the current lottery.
+     */
+    function lotteryProbability(): MathType {
+        return midpoint(minP, maxP);
+    }
 
-    const lotteryP: MathType = midpoint(minP, maxP);
-    const [lotteryOdds, setLotteryOdds] = useState<Fraction>(oddsFromProbability(lotteryP));
-    const [finalAnswer, setFinalAnswer] = useState<MathType | null>(null);
+    /**
+     * @returns Return the odds of the current lottery.
+     */
+    function lotteryOdds(): Fraction {
+        return oddsFromProbability(lotteryProbability());
+    }
 
     function handleLottery() {
-        setMaxP(lotteryP);
-        const newLotteryOdds = oddsFromProbability(midpoint(minP, lotteryP));
-        setLotteryOdds(newLotteryOdds);
+        setMaxP(lotteryProbability());
     }
 
     function handleProposition() {
-        setMinP(lotteryP);
-        const newLotteryOdds = oddsFromProbability(midpoint(lotteryP, maxP));
-        setLotteryOdds(newLotteryOdds);
+        setMinP(lotteryProbability());
     }
 
     function handleIndifferent() {
-        setFinalAnswer(lotteryP);
+        setIsFinalAnswer(true);
+    }
+
+    function handleRestart() {
+        setMinP(INITIAL_MIN_P);
+        setMaxP(INITIAL_MAX_P);
+        setIsFinalAnswer(false);
     }
 
     const DynamicWheelLottery = dynamic(() => import('./wheel_lottery'), {
@@ -51,27 +67,28 @@ export default function EquivalentBetTest() {
             <textarea name="stakes" placeholder="$10,000" />
 
             {
-                finalAnswer ? (
+                isFinalAnswer ? (
                     <>
                         <p>Your estimate of the probability of this proposition is:</p>
-                        <p>{multiply(lotteryP, 100).toString()}% or {formatOdds(lotteryOdds)} odds.</p>
+                        <p>{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds.</p>
                     </>
                 ) : (
                     <>
                         <h2>
                             Ball Lottery
                         </h2>
-                        <BallLottery odds={lotteryOdds} />
+                        <BallLottery odds={lotteryOdds()} />
 
                         <h2>
                             Wheel Lottery
                         </h2>
-                        <DynamicWheelLottery odds={lotteryOdds} />
+                        <DynamicWheelLottery odds={lotteryOdds()} />
 
                         <p>Is the proposition or the lottery more likely?</p>
                         <button onClick={handleProposition}>Proposition</button>
                         <button onClick={handleLottery}>Lottery</button>
                         <button onClick={handleIndifferent}>Indifferent</button>
+                        <button onClick={handleRestart}>Restart</button>
                     </>
                 )
             }
