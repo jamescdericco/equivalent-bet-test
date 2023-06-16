@@ -14,6 +14,9 @@ export default function EquivalentBetTest() {
     const [maxP, setMaxP] = useState<MathType>(INITIAL_MAX_P);
     const [isFinalAnswer, setIsFinalAnswer] = useState<boolean>(false);
 
+    enum LotteryDisplay { BALL, WHEEL };
+    const [displayedLottery, setDisplayedLottery] = useState<LotteryDisplay>(LotteryDisplay.BALL);
+
     /**
      * @returns Return the probability of the current lottery.
      */
@@ -87,15 +90,33 @@ export default function EquivalentBetTest() {
                                 <p>
                                     You are given the choice between two bets. One is your belief, the other is a lottery. Choose the one you think is most likely to win.
                                 </p>
-                                <h3>
-                                    Ball Lottery
-                                </h3>
-                                <BallLottery odds={lotteryOdds()} />
 
-                                <h3>
+                                <button onClick={() => { setDisplayedLottery(LotteryDisplay.BALL); }}>
+                                    Ball Lottery
+                                </button>
+                                <button onClick={() => { setDisplayedLottery(LotteryDisplay.WHEEL); }}>
                                     Wheel Lottery
-                                </h3>
-                                <DynamicWheelLottery odds={lotteryOdds()} />
+                                </button>
+
+                                {displayedLottery === LotteryDisplay.BALL
+                                    ? (
+                                        <>
+                                            <h3>
+                                                Ball Lottery
+                                            </h3>
+                                            <BallLottery odds={lotteryOdds()} />
+                                        </>
+                                    )
+                                    : displayedLottery === LotteryDisplay.WHEEL
+                                        ? (
+                                            <>
+                                                <h3>
+                                                    Wheel Lottery
+                                                </h3>
+                                                <DynamicWheelLottery odds={lotteryOdds()} />
+                                            </>
+                                        )
+                                        : null}
 
                                 <p>Is the belief or the lottery more likely?</p>
                                 <button onClick={handleBelief}>Belief</button>
