@@ -4,8 +4,8 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Quantify Probability',
-  description: 'Quantify the subjective probability of a proposition',
+  title: 'Equivalent Bet Test',
+  description: 'Quantify how confident you are in your beliefs',
 }
 
 export default function RootLayout({
