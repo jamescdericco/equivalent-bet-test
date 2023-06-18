@@ -12,7 +12,15 @@ export default function EquivalentBetTest() {
 
     const [minP, setMinP] = useState<MathType>(INITIAL_MIN_P);
     const [maxP, setMaxP] = useState<MathType>(INITIAL_MAX_P);
-    const [isFinalAnswer, setIsFinalAnswer] = useState<boolean>(false);
+
+    enum Step {
+        BELIEF,
+        STAKES,
+        BET,
+        RESULTS
+    };
+
+    const [step, setStep] = useState<Step>(Step.BELIEF);
 
     enum LotteryDisplay { BALL, WHEEL };
     const [displayedLottery, setDisplayedLottery] = useState<LotteryDisplay>(LotteryDisplay.BALL);
@@ -40,13 +48,13 @@ export default function EquivalentBetTest() {
     }
 
     function handleIndifferent() {
-        setIsFinalAnswer(true);
+        setStep(Step.RESULTS);
     }
 
     function handleRestart() {
         setMinP(INITIAL_MIN_P);
         setMaxP(INITIAL_MAX_P);
-        setIsFinalAnswer(false);
+        setStep(Step.BELIEF);
     }
 
     const DynamicWheelLottery = dynamic(() => import('./wheel_lottery'), {
@@ -58,77 +66,81 @@ export default function EquivalentBetTest() {
             <h1>
                 Equivalent Bet Test
             </h1>
-            <p>
-                Use this test to quantify how confident you are in a belief by making some bets for high stakes.
-            </p>
-            <h2>
-                Belief
-            </h2>
-            <textarea placeholder="Your belief here..." />
-
-            <h2>
-                Stakes
-            </h2>
-            <p>
-                Write some high stakes to put the pressure on. This helps you make a realistic assessment of your confidence.
-            </p>
-            <textarea placeholder="$10,000" />
-
-            {
+            {step === Step.BELIEF && (
                 <>
-                    {
-                        isFinalAnswer ? (
-                            <>
-                                <p>Your estimate of the probability that this belief is true is:</p>
-                                <p>{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds.</p>
-                            </>
-                        ) : (
-                            <>
-                                <h2>
-                                    Bet
-                                </h2>
-                                <p>
-                                    You are given the choice between two bets. One is your belief, the other is a lottery. Choose the one you think is most likely to win.
-                                </p>
+                    <p>
+                        Use this test to quantify how confident you are in a belief by making some bets for high stakes.
+                    </p>
+                    <h2>
+                        Belief
+                    </h2>
+                    <textarea placeholder="Your belief here..." />
+                    <button onClick={() => { setStep(Step.STAKES); }}>
+                        Next
+                    </button>
+                </>
+            )}
+            {step === Step.STAKES && (
+                <>
+                    <h2>
+                        Stakes
+                    </h2>
+                    <p>
+                        Write some high stakes to put the pressure on. This helps you make a realistic assessment of your confidence.
+                    </p>
+                    <textarea placeholder="$10,000" />
+                    <button onClick={() => { setStep(Step.BET); }}>
+                        Next
+                    </button>
+                </>
+            )}
+            {step === Step.BET && (
+                <>
+                    <h2>
+                        Bet
+                    </h2>
+                    <p>
+                        You are given the choice between two bets. One is your belief, the other is a lottery. Choose the one you think is most likely to win.
+                    </p>
 
-                                <button onClick={() => { setDisplayedLottery(LotteryDisplay.BALL); }}>
-                                    Ball Lottery
-                                </button>
-                                <button onClick={() => { setDisplayedLottery(LotteryDisplay.WHEEL); }}>
-                                    Wheel Lottery
-                                </button>
+                    <button onClick={() => { setDisplayedLottery(LotteryDisplay.BALL); }}>
+                        Ball Lottery
+                    </button>
+                    <button onClick={() => { setDisplayedLottery(LotteryDisplay.WHEEL); }}>
+                        Wheel Lottery
+                    </button>
 
-                                {displayedLottery === LotteryDisplay.BALL
-                                    ? (
-                                        <>
-                                            <h3>
-                                                Ball Lottery
-                                            </h3>
-                                            <BallLottery odds={lotteryOdds()} />
-                                        </>
-                                    )
-                                    : displayedLottery === LotteryDisplay.WHEEL
-                                        ? (
-                                            <>
-                                                <h3>
-                                                    Wheel Lottery
-                                                </h3>
-                                                <DynamicWheelLottery odds={lotteryOdds()} />
-                                            </>
-                                        )
-                                        : null}
+                    {displayedLottery === LotteryDisplay.BALL && (
+                        <>
+                            <h3>
+                                Ball Lottery
+                            </h3>
+                            <BallLottery odds={lotteryOdds()} />
+                        </>
+                    )}
+                    {displayedLottery === LotteryDisplay.WHEEL && (
+                        <>
+                            <h3>
+                                Wheel Lottery
+                            </h3>
+                            <DynamicWheelLottery odds={lotteryOdds()} />
+                        </>
+                    )}
 
-                                <p>Is the belief or the lottery more likely?</p>
-                                <button onClick={handleBelief}>Belief</button>
-                                <button onClick={handleLottery}>Lottery</button>
-                                <button onClick={handleIndifferent}>Indifferent</button>
-
-                            </>
-                        )
-                    }
+                    <p>Is the belief or the lottery more likely?</p>
+                    <button onClick={handleBelief}>Belief</button>
+                    <button onClick={handleLottery}>Lottery</button>
+                    <button onClick={handleIndifferent}>Indifferent</button>
                     <button onClick={handleRestart}>Restart</button>
                 </>
-            }
+            )}
+            {step === Step.RESULTS && (
+                <>
+                    <p>Your estimate of the probability that this belief is true is:</p>
+                    <p>{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds.</p>
+                    <button onClick={handleRestart}>Restart</button>
+                </>
+            )}
         </div>
     )
 }
