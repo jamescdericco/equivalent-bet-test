@@ -69,7 +69,7 @@ export default function EquivalentBetTest() {
             {step === Step.BELIEF && (
                 <>
                     <p>
-                        Use this test to quantify how confident you are in a belief by making some bets for high stakes.
+                        Quantify how confident you are in a belief by making some high stakes bets.
                     </p>
                     <h2>
                         Belief
