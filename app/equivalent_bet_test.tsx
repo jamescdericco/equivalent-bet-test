@@ -14,13 +14,14 @@ export default function EquivalentBetTest() {
     const [maxP, setMaxP] = useState<MathType>(INITIAL_MAX_P);
 
     enum Step {
+        START,
         BELIEF,
         STAKES,
         BET,
         RESULTS
     };
 
-    const [step, setStep] = useState<Step>(Step.BELIEF);
+    const [step, setStep] = useState<Step>(Step.START);
 
     enum LotteryDisplay { BALL, WHEEL };
     const [displayedLottery, setDisplayedLottery] = useState<LotteryDisplay>(LotteryDisplay.BALL);
@@ -66,11 +67,19 @@ export default function EquivalentBetTest() {
             <h1>
                 Equivalent Bet Test
             </h1>
-            {step === Step.BELIEF && (
+            {step === Step.START && (
                 <>
                     <p>
                         Quantify how confident you are in a belief by making some high stakes bets.
                     </p>
+
+                    <button onClick={() => { setStep(Step.BELIEF); }} className="btn-next">
+                        Start
+                    </button>
+                </>
+            )}
+            {step === Step.BELIEF && (
+                <>
                     <h2>
                         Belief
                     </h2>
