@@ -75,7 +75,7 @@ export default function EquivalentBetTest() {
                         Belief
                     </h2>
                     <textarea placeholder="Your belief here..." />
-                    <button onClick={() => { setStep(Step.STAKES); }}>
+                    <button onClick={() => { setStep(Step.STAKES); }} className="btn-next">
                         Next
                     </button>
                 </>
@@ -89,7 +89,7 @@ export default function EquivalentBetTest() {
                         Write some high stakes to put the pressure on. This helps you make a realistic assessment of your confidence.
                     </p>
                     <textarea placeholder="$10,000" />
-                    <button onClick={() => { setStep(Step.BET); }}>
+                    <button onClick={() => { setStep(Step.BET); }} className="btn-next">
                         Next
                     </button>
                 </>
@@ -148,7 +148,7 @@ export default function EquivalentBetTest() {
                         Wheel Lottery
                     </h3>
                     <DynamicWheelLottery odds={lotteryOdds()} />
-                    <button onClick={handleRestart}>Restart</button>
+                    <button onClick={handleRestart} className="btn-next">Restart</button>
                 </>
             )}
         </div>
