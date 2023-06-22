@@ -115,18 +115,23 @@ export default function EquivalentBetTest() {
                         You are given the choice between two bets. One is your belief, the other is a lottery. Choose the one you think is most likely to win.
                     </p>
 
-                    <div style={{ textAlign: "left" }}>
-                        <label>
-                            Belief:
-                            <span> {belief}</span>
-                        </label>
-                    </div>
-                    <div style={{ textAlign: "left" }}>
-                        <label>
-                            Stakes:
-                            <span> {stakes}</span>
-                        </label>
-                    </div>
+                    {belief && (
+                        <div style={{ textAlign: "left" }}>
+                            <label>
+                                Belief:
+                                <span> {belief}</span>
+                            </label>
+                        </div>
+                    )}
+
+                    {stakes && (
+                        <div style={{ textAlign: "left" }}>
+                            <label>
+                                Stakes:
+                                <span> {stakes}</span>
+                            </label>
+                        </div>
+                    )}
 
                     <Tabs isFitted variant="enclosed">
                         <TabList>
