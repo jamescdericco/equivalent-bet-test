@@ -13,6 +13,9 @@ export default function EquivalentBetTest() {
     const [minP, setMinP] = useState<MathType>(INITIAL_MIN_P);
     const [maxP, setMaxP] = useState<MathType>(INITIAL_MAX_P);
 
+    const [belief, setBelief] = useState<string>('');
+    const [stakes, setStakes] = useState<string>('');
+
     enum Step {
         START,
         BELIEF,
@@ -83,7 +86,8 @@ export default function EquivalentBetTest() {
                     <h2>
                         Belief
                     </h2>
-                    <textarea placeholder="Your belief here..." />
+                    <textarea placeholder="Your belief here..." value={belief}
+                        onChange={({ target }) => { setBelief(target.value); }} />
                     <button onClick={() => { setStep(Step.STAKES); }} className="btn-next">
                         Next
                     </button>
@@ -97,7 +101,8 @@ export default function EquivalentBetTest() {
                     <p>
                         Write some high stakes to put the pressure on. This helps you make a realistic assessment of your confidence.
                     </p>
-                    <textarea placeholder="$10,000" />
+                    <textarea placeholder="$10,000" value={stakes}
+                        onChange={({ target }) => { setStakes(target.value); }} />
                     <button onClick={() => { setStep(Step.BET); }} className="btn-next">
                         Next
                     </button>
@@ -111,6 +116,19 @@ export default function EquivalentBetTest() {
                     <p>
                         You are given the choice between two bets. One is your belief, the other is a lottery. Choose the one you think is most likely to win.
                     </p>
+
+                    <div style={{ textAlign: "left" }}>
+                        <label>
+                            Belief:
+                            <span> {belief}</span>
+                        </label>
+                    </div>
+                    <div style={{ textAlign: "left" }}>
+                        <label>
+                            Stakes:
+                            <span> {stakes}</span>
+                        </label>
+                    </div>
 
                     <button onClick={() => { setDisplayedLottery(LotteryDisplay.BALL); }}>
                         Ball Lottery
