@@ -20,6 +20,12 @@ export function midpoint(a: MathType, b: MathType): MathType {
   return divide(add(a, b), fraction('2'));
 }
 
+/**
+ * Converts a probability to odds.
+ * 
+ * @param p probability to convert
+ * @returns odds as a fraction
+ */
 export function oddsFromProbability(p: MathType): Fraction {
   const odds = divide(p, subtract(fraction('1'), p))
   return odds as Fraction;
