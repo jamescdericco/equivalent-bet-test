@@ -1,11 +1,10 @@
 'use client';
 
 import { useState } from "react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Button, Heading, Textarea } from '@chakra-ui/react'
-import BallLottery from "./ball_lottery";
+import { Button, Heading, Textarea } from '@chakra-ui/react'
 import { multiply, fraction, MathType, Fraction } from 'mathjs';
 import { formatOdds, midpoint, oddsFromProbability } from "./probability";
-import dynamic from "next/dynamic";
+import { Lottery } from "./lottery";
 
 export default function EquivalentBetTest() {
     const INITIAL_MIN_P = fraction('0');
@@ -58,10 +57,6 @@ export default function EquivalentBetTest() {
         setMaxP(INITIAL_MAX_P);
         setStep(Step.BELIEF);
     }
-
-    const DynamicWheelLottery = dynamic(() => import('./wheel_lottery'), {
-        ssr: false,
-    });
 
     return (
         <div>
@@ -133,21 +128,7 @@ export default function EquivalentBetTest() {
                         </div>
                     )}
 
-                    <Tabs isFitted variant="enclosed">
-                        <TabList>
-                            <Tab>Ball Lottery</Tab>
-                            <Tab>Wheel Lottery</Tab>
-                        </TabList>
-
-                        <TabPanels>
-                            <TabPanel>
-                                <BallLottery odds={lotteryOdds()} />
-                            </TabPanel>
-                            <TabPanel>
-                                <DynamicWheelLottery odds={lotteryOdds()} />
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
+                    <Lottery odds={lotteryOdds()} />
 
                     <p>Is the belief or the lottery more likely?</p>
                     <Button onClick={handleBelief}>Belief</Button>
@@ -162,22 +143,8 @@ export default function EquivalentBetTest() {
                     <p><strong>{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds</strong></p>
                     <p>which is equal to the probability of winning these lotteries:</p>
 
-                    <Tabs isFitted variant="enclosed">
-                        <TabList>
-                            <Tab>Ball Lottery</Tab>
-                            <Tab>Wheel Lottery</Tab>
-                        </TabList>
+                    <Lottery odds={lotteryOdds()} />
 
-                        <TabPanels>
-                            <TabPanel>
-                                <BallLottery odds={lotteryOdds()} />
-                            </TabPanel>
-                            <TabPanel>
-                                <DynamicWheelLottery odds={lotteryOdds()} />
-                            </TabPanel>
-                        </TabPanels>
-                    </Tabs>
-                    
                     <Button onClick={handleRestart} className="btn-next">Restart</Button>
                 </>
             )}
