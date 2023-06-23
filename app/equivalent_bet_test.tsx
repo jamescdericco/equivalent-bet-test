@@ -1,10 +1,11 @@
 'use client';
 
+import { Button, Heading, Text, Textarea } from '@chakra-ui/react';
+import { Fraction, MathType, fraction, multiply } from 'mathjs';
 import { useState } from "react";
-import { Button, Heading, Text, Textarea } from '@chakra-ui/react'
-import { multiply, fraction, MathType, Fraction } from 'mathjs';
-import { formatOdds, midpoint, oddsFromProbability } from "./probability";
+
 import { Lottery } from "./lottery";
+import { formatOdds, midpoint, oddsFromProbability } from "./probability";
 
 export default function EquivalentBetTest() {
     const INITIAL_MIN_P = fraction('0');

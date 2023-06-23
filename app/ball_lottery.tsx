@@ -1,7 +1,7 @@
-import { Fraction } from "mathjs"
-import { formatOdds } from "./probability";
+import { Text } from '@chakra-ui/react';
+import { Fraction } from "mathjs";
 
-import { Text } from '@chakra-ui/react'
+import { formatOdds } from "./probability";
 
 interface Props {
     odds: Fraction

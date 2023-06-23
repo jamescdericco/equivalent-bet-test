@@ -1,7 +1,8 @@
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@chakra-ui/react";
-import BallLottery from "./ball_lottery";
-import dynamic from "next/dynamic";
+import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { Fraction } from "mathjs";
+import dynamic from "next/dynamic";
+
+import BallLottery from "./ball_lottery";
 
 interface Props {
     odds: Fraction

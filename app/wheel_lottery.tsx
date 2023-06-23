@@ -1,6 +1,7 @@
 import { Fraction } from "mathjs";
 import { useState } from "react";
 import { Wheel } from "react-custom-roulette";
+
 import { simulateOdds } from "./probability";
 
 /**
