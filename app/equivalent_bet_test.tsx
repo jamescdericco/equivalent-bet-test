@@ -1,4 +1,4 @@
-import { Button, Heading, Text, Textarea } from '@chakra-ui/react';
+import { Box, Button, Heading, Step, StepDescription, StepIcon, StepIndicator, StepNumber, StepSeparator, StepStatus, StepTitle, Stepper, Text, Textarea, useSteps } from '@chakra-ui/react';
 import { Fraction, MathType, fraction, multiply } from 'mathjs';
 import { useState } from "react";
 
@@ -15,15 +15,40 @@ export default function EquivalentBetTest() {
     const [belief, setBelief] = useState<string>('');
     const [stakes, setStakes] = useState<string>('');
 
-    enum Step {
-        START,
+    /**
+     * Each step of the equivalent bets test.
+     * 
+     * Each member has the value of the step's index in the `steps` array.
+     */
+    enum TestStep {
+        START = 0,
         BELIEF,
         STAKES,
         BET,
         RESULTS
-    };
+    }
 
-    const [step, setStep] = useState<Step>(Step.START);
+    /**
+     * All the steps in the equivalent bets test.
+     * 
+     * The enum `TestStep` is used to index into this array.
+     */
+    const steps = [
+        { title: 'Start', description: 'Introduction' },
+        { title: 'Belief', description: 'Choose a belief' },
+        { title: 'Stakes', description: 'Set betting stakes' },
+        { title: 'Bet', description: 'Place your bets' },
+        { title: 'Results', description: 'See your results' }
+    ];
+
+    const { activeStep, setActiveStep }
+        : {
+            activeStep: TestStep,
+            setActiveStep: React.Dispatch<React.SetStateAction<TestStep>>
+        } = useSteps({
+            index: TestStep.START,
+            count: steps.length,
+        });
 
     /**
      * @returns Return the probability of the current lottery.
@@ -48,13 +73,13 @@ export default function EquivalentBetTest() {
     }
 
     function handleIndifferent() {
-        setStep(Step.RESULTS);
+        setActiveStep(TestStep.RESULTS);
     }
 
     function handleRestart() {
         setMinP(INITIAL_MIN_P);
         setMaxP(INITIAL_MAX_P);
-        setStep(Step.BELIEF);
+        setActiveStep(TestStep.BELIEF);
     }
 
     return (
@@ -62,30 +87,53 @@ export default function EquivalentBetTest() {
             <Heading as="h1" size="2xl">
                 Equivalent Bet Test
             </Heading>
-            {step === Step.START && (
+
+            {activeStep !== TestStep.START && (
+                <Stepper index={activeStep} py={4}>
+                    {steps.map((step, index) => (
+                        <Step key={index}>
+                            <StepIndicator>
+                                <StepStatus
+                                    complete={<StepIcon />}
+                                    incomplete={<StepNumber />}
+                                    active={<StepNumber />}
+                                />
+                            </StepIndicator>
+                            <Box flexShrink='0'>
+                                <StepTitle>{step.title}</StepTitle>
+                                <StepDescription>{step.description}</StepDescription>
+                            </Box>
+
+                            <StepSeparator />
+                        </Step>
+                    ))}
+                </Stepper>
+            )}
+
+            {activeStep === TestStep.START && (
                 <>
                     <Text>
                         Quantify how confident you are in a belief by making some high stakes bets.
                     </Text>
 
-                    <Button onClick={() => { setStep(Step.BELIEF); }} className="btn-next">
+                    <Button onClick={() => { setActiveStep(TestStep.BELIEF); }} className="btn-next">
                         Start
                     </Button>
                 </>
             )}
-            {step === Step.BELIEF && (
+            {activeStep === TestStep.BELIEF && (
                 <>
                     <Heading>
                         Belief
                     </Heading>
                     <Textarea placeholder="Your belief here..." value={belief}
                         onChange={({ target }) => { setBelief(target.value); }} />
-                    <Button onClick={() => { setStep(Step.STAKES); }} className="btn-next">
+                    <Button onClick={() => { setActiveStep(TestStep.STAKES); }} className="btn-next">
                         Next
                     </Button>
                 </>
             )}
-            {step === Step.STAKES && (
+            {activeStep === TestStep.STAKES && (
                 <>
                     <Heading>
                         Stakes
@@ -95,12 +143,12 @@ export default function EquivalentBetTest() {
                     </Text>
                     <Textarea placeholder="$10,000" value={stakes}
                         onChange={({ target }) => { setStakes(target.value); }} />
-                    <Button onClick={() => { setStep(Step.BET); }} className="btn-next">
+                    <Button onClick={() => { setActiveStep(TestStep.BET); }} className="btn-next">
                         Next
                     </Button>
                 </>
             )}
-            {step === Step.BET && (
+            {activeStep === TestStep.BET && (
                 <>
                     <Heading>
                         Bet
@@ -126,7 +174,7 @@ export default function EquivalentBetTest() {
                     <Button onClick={handleRestart}>Restart</Button>
                 </>
             )}
-            {step === Step.RESULTS && (
+            {activeStep === TestStep.RESULTS && (
                 <>
                     <Text>Your estimate of the probability that this belief is true is:</Text>
                     <Text fontSize="3xl">{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds</Text>

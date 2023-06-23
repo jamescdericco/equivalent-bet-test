@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main>
       <div style={{
-        margin: 'auto', maxWidth: '620px', textAlign: 'center',
+        margin: 'auto', maxWidth: '1000px', textAlign: 'center',
         borderRadius: '10px', padding: '10px'
       }}>
         <EquivalentBetTest />
