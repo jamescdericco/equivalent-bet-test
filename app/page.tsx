@@ -1,3 +1,5 @@
+'use client'
+
 import EquivalentBetTest from './equivalent_bet_test'
 
 export default function Home() {

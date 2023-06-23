@@ -1,5 +1,3 @@
-'use client';
-
 import { Button, Heading, Text, Textarea } from '@chakra-ui/react';
 import { Fraction, MathType, fraction, multiply } from 'mathjs';
 import { useState } from "react";
