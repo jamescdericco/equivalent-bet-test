@@ -161,15 +161,23 @@ export default function EquivalentBetTest() {
                     <p>Your estimate of the probability that this belief is true is:</p>
                     <p><strong>{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds</strong></p>
                     <p>which is equal to the probability of winning these lotteries:</p>
-                    <Heading>
-                        Ball Lottery
-                    </Heading>
-                    <BallLottery odds={lotteryOdds()} />
 
-                    <Heading>
-                        Wheel Lottery
-                    </Heading>
-                    <DynamicWheelLottery odds={lotteryOdds()} />
+                    <Tabs isFitted variant="enclosed">
+                        <TabList>
+                            <Tab>Ball Lottery</Tab>
+                            <Tab>Wheel Lottery</Tab>
+                        </TabList>
+
+                        <TabPanels>
+                            <TabPanel>
+                                <BallLottery odds={lotteryOdds()} />
+                            </TabPanel>
+                            <TabPanel>
+                                <DynamicWheelLottery odds={lotteryOdds()} />
+                            </TabPanel>
+                        </TabPanels>
+                    </Tabs>
+                    
                     <Button onClick={handleRestart} className="btn-next">Restart</Button>
                 </>
             )}
