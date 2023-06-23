@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Button } from '@chakra-ui/react'
 import BallLottery from "./ball_lottery";
 import { multiply, fraction, MathType, Fraction } from 'mathjs';
 import { formatOdds, midpoint, oddsFromProbability } from "./probability";
@@ -74,9 +74,9 @@ export default function EquivalentBetTest() {
                         Quantify how confident you are in a belief by making some high stakes bets.
                     </p>
 
-                    <button onClick={() => { setStep(Step.BELIEF); }} className="btn-next">
+                    <Button onClick={() => { setStep(Step.BELIEF); }} className="btn-next">
                         Start
-                    </button>
+                    </Button>
                 </>
             )}
             {step === Step.BELIEF && (
@@ -86,9 +86,9 @@ export default function EquivalentBetTest() {
                     </h2>
                     <textarea placeholder="Your belief here..." value={belief}
                         onChange={({ target }) => { setBelief(target.value); }} />
-                    <button onClick={() => { setStep(Step.STAKES); }} className="btn-next">
+                    <Button onClick={() => { setStep(Step.STAKES); }} className="btn-next">
                         Next
-                    </button>
+                    </Button>
                 </>
             )}
             {step === Step.STAKES && (
@@ -101,9 +101,9 @@ export default function EquivalentBetTest() {
                     </p>
                     <textarea placeholder="$10,000" value={stakes}
                         onChange={({ target }) => { setStakes(target.value); }} />
-                    <button onClick={() => { setStep(Step.BET); }} className="btn-next">
+                    <Button onClick={() => { setStep(Step.BET); }} className="btn-next">
                         Next
-                    </button>
+                    </Button>
                 </>
             )}
             {step === Step.BET && (
@@ -150,10 +150,10 @@ export default function EquivalentBetTest() {
                     </Tabs>
 
                     <p>Is the belief or the lottery more likely?</p>
-                    <button onClick={handleBelief}>Belief</button>
-                    <button onClick={handleLottery}>Lottery</button>
-                    <button onClick={handleIndifferent}>Indifferent</button>
-                    <button onClick={handleRestart}>Restart</button>
+                    <Button onClick={handleBelief}>Belief</Button>
+                    <Button onClick={handleLottery}>Lottery</Button>
+                    <Button onClick={handleIndifferent}>Indifferent</Button>
+                    <Button onClick={handleRestart}>Restart</Button>
                 </>
             )}
             {step === Step.RESULTS && (
@@ -170,7 +170,7 @@ export default function EquivalentBetTest() {
                         Wheel Lottery
                     </h3>
                     <DynamicWheelLottery odds={lotteryOdds()} />
-                    <button onClick={handleRestart} className="btn-next">Restart</button>
+                    <Button onClick={handleRestart} className="btn-next">Restart</Button>
                 </>
             )}
         </div>

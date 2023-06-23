@@ -2,13 +2,3 @@
     display: block;
     width: 100%;
 }
-
-button {
-    cursor: pointer;
-    border-radius: 10px;
-    border: none;
-    font-size: large;
-    font-weight: bold;
-    padding: 10px;
-    margin: 2px;
-}
