@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Button, Heading } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Button, Heading, Textarea } from '@chakra-ui/react'
 import BallLottery from "./ball_lottery";
 import { multiply, fraction, MathType, Fraction } from 'mathjs';
 import { formatOdds, midpoint, oddsFromProbability } from "./probability";
@@ -84,7 +84,7 @@ export default function EquivalentBetTest() {
                     <Heading>
                         Belief
                     </Heading>
-                    <textarea placeholder="Your belief here..." value={belief}
+                    <Textarea placeholder="Your belief here..." value={belief}
                         onChange={({ target }) => { setBelief(target.value); }} />
                     <Button onClick={() => { setStep(Step.STAKES); }} className="btn-next">
                         Next
@@ -99,7 +99,7 @@ export default function EquivalentBetTest() {
                     <p>
                         Write some high stakes to put the pressure on. This helps you make a realistic assessment of your confidence.
                     </p>
-                    <textarea placeholder="$10,000" value={stakes}
+                    <Textarea placeholder="$10,000" value={stakes}
                         onChange={({ target }) => { setStakes(target.value); }} />
                     <Button onClick={() => { setStep(Step.BET); }} className="btn-next">
                         Next
