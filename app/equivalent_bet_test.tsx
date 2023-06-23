@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { Button, Heading, Textarea } from '@chakra-ui/react'
+import { Button, Heading, Text, Textarea } from '@chakra-ui/react'
 import { multiply, fraction, MathType, Fraction } from 'mathjs';
 import { formatOdds, midpoint, oddsFromProbability } from "./probability";
 import { Lottery } from "./lottery";
@@ -140,9 +140,8 @@ export default function EquivalentBetTest() {
             {step === Step.RESULTS && (
                 <>
                     <p>Your estimate of the probability that this belief is true is:</p>
-                    <p><strong>{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds</strong></p>
+                    <Text fontSize="3xl">{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds</Text>
                     <p>which is equal to the probability of winning these lotteries:</p>
-
                     <Lottery odds={lotteryOdds()} />
 
                     <Button onClick={handleRestart} className="btn-next">Restart</Button>
