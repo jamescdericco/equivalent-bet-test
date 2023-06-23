@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from "react";
-import { Tabs, TabList, TabPanels, Tab, TabPanel, Button } from '@chakra-ui/react'
+import { Tabs, TabList, TabPanels, Tab, TabPanel, Button, Heading } from '@chakra-ui/react'
 import BallLottery from "./ball_lottery";
 import { multiply, fraction, MathType, Fraction } from 'mathjs';
 import { formatOdds, midpoint, oddsFromProbability } from "./probability";
@@ -65,9 +65,9 @@ export default function EquivalentBetTest() {
 
     return (
         <div>
-            <h1>
+            <Heading as="h1" size="2xl">
                 Equivalent Bet Test
-            </h1>
+            </Heading>
             {step === Step.START && (
                 <>
                     <p>
@@ -81,9 +81,9 @@ export default function EquivalentBetTest() {
             )}
             {step === Step.BELIEF && (
                 <>
-                    <h2>
+                    <Heading>
                         Belief
-                    </h2>
+                    </Heading>
                     <textarea placeholder="Your belief here..." value={belief}
                         onChange={({ target }) => { setBelief(target.value); }} />
                     <Button onClick={() => { setStep(Step.STAKES); }} className="btn-next">
@@ -93,9 +93,9 @@ export default function EquivalentBetTest() {
             )}
             {step === Step.STAKES && (
                 <>
-                    <h2>
+                    <Heading>
                         Stakes
-                    </h2>
+                    </Heading>
                     <p>
                         Write some high stakes to put the pressure on. This helps you make a realistic assessment of your confidence.
                     </p>
@@ -108,9 +108,9 @@ export default function EquivalentBetTest() {
             )}
             {step === Step.BET && (
                 <>
-                    <h2>
+                    <Heading>
                         Bet
-                    </h2>
+                    </Heading>
                     <p>
                         You are given the choice between two bets. One is your belief, the other is a lottery. Choose the one you think is most likely to win.
                     </p>
@@ -161,14 +161,14 @@ export default function EquivalentBetTest() {
                     <p>Your estimate of the probability that this belief is true is:</p>
                     <p><strong>{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds</strong></p>
                     <p>which is equal to the probability of winning these lotteries:</p>
-                    <h3>
+                    <Heading>
                         Ball Lottery
-                    </h3>
+                    </Heading>
                     <BallLottery odds={lotteryOdds()} />
 
-                    <h3>
+                    <Heading>
                         Wheel Lottery
-                    </h3>
+                    </Heading>
                     <DynamicWheelLottery odds={lotteryOdds()} />
                     <Button onClick={handleRestart} className="btn-next">Restart</Button>
                 </>
