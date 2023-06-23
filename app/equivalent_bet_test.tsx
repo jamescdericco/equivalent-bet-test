@@ -177,7 +177,7 @@ export default function EquivalentBetTest() {
             {activeStep === TestStep.RESULTS && (
                 <>
                     <Text>Your estimate of the probability that this belief is true is:</Text>
-                    <Text fontSize="3xl">{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds</Text>
+                    <Text fontSize="3xl"><strong>{multiply(lotteryProbability(), 100).toString()}%</strong> or <strong>{formatOdds(lotteryOdds())}</strong> odds</Text>
                     <Text>which is equal to the probability of winning these lotteries:</Text>
                     <Lottery odds={lotteryOdds()} />
 
