@@ -65,9 +65,9 @@ export default function EquivalentBetTest() {
             </Heading>
             {step === Step.START && (
                 <>
-                    <p>
+                    <Text>
                         Quantify how confident you are in a belief by making some high stakes bets.
-                    </p>
+                    </Text>
 
                     <Button onClick={() => { setStep(Step.BELIEF); }} className="btn-next">
                         Start
@@ -91,9 +91,9 @@ export default function EquivalentBetTest() {
                     <Heading>
                         Stakes
                     </Heading>
-                    <p>
+                    <Text>
                         Write some high stakes to put the pressure on. This helps you make a realistic assessment of your confidence.
-                    </p>
+                    </Text>
                     <Textarea placeholder="$10,000" value={stakes}
                         onChange={({ target }) => { setStakes(target.value); }} />
                     <Button onClick={() => { setStep(Step.BET); }} className="btn-next">
@@ -106,31 +106,21 @@ export default function EquivalentBetTest() {
                     <Heading>
                         Bet
                     </Heading>
-                    <p>
+                    <Text>
                         You are given the choice between two bets. One is your belief, the other is a lottery. Choose the one you think is most likely to win.
-                    </p>
+                    </Text>
 
                     {belief && (
-                        <div style={{ textAlign: "left" }}>
-                            <label>
-                                Belief:
-                                <span> {belief}</span>
-                            </label>
-                        </div>
+                        <Text align="left">Belief: {belief}</Text>
                     )}
 
                     {stakes && (
-                        <div style={{ textAlign: "left" }}>
-                            <label>
-                                Stakes:
-                                <span> {stakes}</span>
-                            </label>
-                        </div>
+                        <Text align="left">Stakes: {stakes}</Text>
                     )}
 
                     <Lottery odds={lotteryOdds()} />
 
-                    <p>Is the belief or the lottery more likely?</p>
+                    <Text>Is the belief or the lottery more likely?</Text>
                     <Button onClick={handleBelief}>Belief</Button>
                     <Button onClick={handleLottery}>Lottery</Button>
                     <Button onClick={handleIndifferent}>Indifferent</Button>
@@ -139,9 +129,9 @@ export default function EquivalentBetTest() {
             )}
             {step === Step.RESULTS && (
                 <>
-                    <p>Your estimate of the probability that this belief is true is:</p>
+                    <Text>Your estimate of the probability that this belief is true is:</Text>
                     <Text fontSize="3xl">{multiply(lotteryProbability(), 100).toString()}% or {formatOdds(lotteryOdds())} odds</Text>
-                    <p>which is equal to the probability of winning these lotteries:</p>
+                    <Text>which is equal to the probability of winning these lotteries:</Text>
                     <Lottery odds={lotteryOdds()} />
 
                     <Button onClick={handleRestart} className="btn-next">Restart</Button>

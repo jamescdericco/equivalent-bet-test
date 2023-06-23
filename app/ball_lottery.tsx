@@ -1,6 +1,8 @@
 import { Fraction } from "mathjs"
 import { formatOdds } from "./probability";
 
+import { Text } from '@chakra-ui/react'
+
 interface Props {
     odds: Fraction
 }
@@ -53,9 +55,9 @@ export default function BallLottery({ odds }: Props) {
     }
     return (
         <div>
-            <p>
+            <Text>
                 Pick one black ball at random from this bag of {odds.n + odds.d} balls. <em>The odds of this are {formatOdds(odds)}.</em>
-            </p>
+            </Text>
 
             <div>
                 {renderBalls(odds)}
