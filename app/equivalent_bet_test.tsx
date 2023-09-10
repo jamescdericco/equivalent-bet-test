@@ -113,7 +113,15 @@ export default function EquivalentBetTest() {
             {activeStep === TestStep.START && (
                 <>
                     <Text>
-                        Quantify how confident you are in a belief by making some high stakes bets.
+                        <em>Quantify how confident you are in a belief by making some high stakes bets.</em>
+                    </Text>
+
+                    <Heading>
+                        Introduction
+                    </Heading>
+
+                    <Text>
+                        The Equivalent Bet Test is a process for estimating how confident you are in a belief being true, also known as the belief's subjective probability. Each step of the test involves choosing what you feel is more likely: your belief, or a lottery where the odds of winning are known. When you decide the more favorable bet, the range of possible probabilities of the belief are narrowed until there is a point where both options seem to be just as good bets. At this point when you are indifferent about the bet, the probability of the belief is determined to be the probability of the lottery.
                     </Text>
 
                     <Button onClick={() => { setActiveStep(TestStep.BELIEF); }} className="btn-next">
