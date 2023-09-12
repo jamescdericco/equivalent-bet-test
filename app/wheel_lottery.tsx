@@ -41,12 +41,12 @@ export default function WheelLottery({ odds }: Props) {
                     {
                         option: 'Win',
                         optionSize: odds.n,
-                        style: { backgroundColor: 'green' }
+                        style: { backgroundColor: 'khaki' }
                     },
                     {
                         option: 'Lose',
                         optionSize: odds.d,
-                        style: { backgroundColor: 'red' }
+                        style: { backgroundColor: 'darkorchid' }
                     }
                 ]}
                 radiusLineWidth={0}
