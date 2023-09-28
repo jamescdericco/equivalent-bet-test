@@ -89,7 +89,7 @@ export default function EquivalentBetTest() {
             </Heading>
 
             {activeStep !== TestStep.START && (
-                <Stepper index={activeStep} py={4}>
+                <Stepper index={activeStep} hideBelow="820px" py={4}>
                     {steps.map((step, index) => (
                         <Step key={index}>
                             <StepIndicator>
